@@ -9,7 +9,7 @@ This implementation is based on the ID5 article [[1]](#1). ID5 is an Incremental
  <br>
 
 
-## Steps:
+## Steps
 
 1. Add every instance until the entropy is not equal to zero. Then based on the E-score select an attribute for the main root.
 2. Add every instance to the tree.

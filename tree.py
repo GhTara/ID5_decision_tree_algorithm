@@ -34,16 +34,6 @@ class Tree(NodeMixin):
 
     def add_instance(self, instance, attribute_value_dict):
 
-        # change = False
-        # attribute_name = instance.attribues_value[self.attribute_name]
-        # if not self.childs_dict[attribute_name]:
-        #     node = Tree(attribute_name=None, classes_num=[
-        #                 0, 0], childs_value=None, parent=self, is_feature=False)
-        #     self.childs_dict[attribute_name] = node
-        # node = self.childs_dict[attribute_name]
-        # self.childs_dict[attribute_name].add_instance_propagte(instance)
-        # if 0 not in node.classes_num:
-        #     change = True
 
         # ---------------------------------------------------------------------------
         blocked_list = []
@@ -81,8 +71,7 @@ class Tree(NodeMixin):
                 best_attr = find_best_attr(
                     instances, blocked_list, attribute_value_dict)
                 node.attribute_name = best_attr
-                # print(
-                #     best_attr, attribute_value_dict[best_attr], '---------------')
+
                 # add children attributes to node
                 for attri_val in attribute_value_dict[best_attr]:
                     node.childs_dict[attri_val] = None
@@ -120,17 +109,10 @@ class Tree(NodeMixin):
                 self.check_pull_up(attribute_value_dict)
 
     def check_pull_up(self, attribute_value_dict):
-        # print(self.attribute_name, end=' ')
 
         i = 0
         for attr_val, child in self.childs_dict.items():
-            i += 1
-            # print(i, '------------------------')
 
-            if i > 100:
-                None
-                # print(i)
-                # break
             if child:
                 if child.is_attr:
                     if attr_entropy(child.attribute_name, child.instances, attribute_value_dict) < attr_entropy(self.attribute_name, self.instances, attribute_value_dict):
@@ -152,8 +134,7 @@ class Tree(NodeMixin):
 
     def output_test(self, instance, attribute_value_dict):
         node = self
-        # print('__________________________')
-        # print(instance.attribues_value)
+
         while node.attribute_name:
             l = 0
             if node.classes_num[0] >= node.classes_num[1]:
@@ -162,10 +143,8 @@ class Tree(NodeMixin):
                 l = 0
             if l != instance.class_value:
                 node.num_false += 1
-            # print(node.attribute_name)
             attr_value = instance.attribues_value[node.attribute_name]
             parent = node
-            # print(node.childs_dict)
             node = node.childs_dict[attr_value]
 
             if not node:
@@ -195,7 +174,6 @@ class Tree(NodeMixin):
                         self.childs_dict[attr_val] = None
                         print(self.childs_dict[attr_val].attribute_name)
 
-    # Prints the n-ary tree level wise
     '''
     def reduced_error_pruning(self):
 

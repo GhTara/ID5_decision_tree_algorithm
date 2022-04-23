@@ -23,7 +23,6 @@ def load_data(filename):
     for key in instances[0].attribues_value.keys():
         attribute_value_dict[key] = list(
             set([instance.attribues_value[key] for instance in instances]))
-    # print(attribute_value_dict)
     return instances
 
 
@@ -44,7 +43,6 @@ def kfoldCrossValid(k, data, purning=False):
             hold_out = data[i*sizeFold:]
 
         train_data = list(set(data) - set(hold_out))
-        # print(len(train_data), len(hold_out))
         # make tree on current train data
         makeTree(train_data)
 
@@ -90,7 +88,6 @@ def makeTree(train_data):
     # calculate global entropy each iteration
     while entropy(current_instances) == 0:
         current_instances.append(train_data.pop(0))
-    # print([ins.class_value for ins in current_instances])
     choose_root()
 
     for instance in train_data:
@@ -155,7 +152,7 @@ def attr_entropy(attribute, instances):
     # initialization
     for attr_val in attribute_value_dict[attribute]:
         attr_antropy_dict[attr_val] = []
-    # devot every instance to each attr_value
+    # devote every instance to each attr_value
     for instance in instances:
         attr_antropy_dict[instance.attribues_value[attribute]].append(instance)
     # calculate weighted average of antorpies
@@ -167,37 +164,6 @@ def attr_entropy(attribute, instances):
     return ave
 
 
-# def check_pull_up(self):
-#     global tree_root
-#     global attribute_value_dict
-#     i = 0
-#     for attr_val, child in self.childs_dict.items():
-#         i += 1
-#         # print(i, '------------------------')
-
-#         if i > 100:
-#             None
-#             # print(i)
-#             # break
-#         if child:
-#             if child.is_attr:
-#                 if attr_entropy(child.attribute_name, child.instances) < attr_entropy(self.attribute_name, self.instances):
-#                     # set the child as root of the tree
-#                     new_tree_root = Tree(child.attribute_name, [
-#                         0, 0], attribute_value_dict[child.attribute_name], True, None)
-#                     # add old parent to each of value of new root attributes
-#                     for attr_val_child in new_tree_root.childs_value:
-#                         node_temp = Tree(attr_val_child, [
-#                             0, 0], self.childs_value, False, new_tree_root)
-#                         new_tree_root.childs_dict[attr_val_child] = node_temp
-#                     instances = self.instances
-#                     self = new_tree_root
-
-#                     # recreat tree
-#                     for instance in instances:
-#                         current_instances.append(instance)
-#                         is_change, leaf_node = self.add_instance(
-#                             instance, attribute_value_dict)
 
 
 def calculate_precision(test_data):
@@ -215,7 +181,6 @@ def calculate_precision(test_data):
     return float(correct) / float(total+minus)
 
 
-# def pull_up():
 file_name = 'data.xls'
 instances = load_data(file_name)
 # print(instances[3].attribues_value, instances[3].class_value)
